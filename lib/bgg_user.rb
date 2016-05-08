@@ -4,14 +4,13 @@ module BoardGameGem
 		attr_reader :id, :name, :avatar, :year_registered, :last_login, :state, :trade_rating
 
 		def initialize(xml)
-			super
-			@id = get_integer("user", "id")
-			@name = get_string("user", "name")
-			@avatar = get_string("avatarlink", "value")
-			@year_registered = get_integer("yearregistered", "value")
-			@last_login = get_string("lastlogin", "value")
-			@state = get_string("stateorprovince", "value")
-			@trade_rating = get_integer("traderating", "value")
+			@id = get_integer(xml, "user", "id")
+			@name = get_string(xml, "user", "name")
+			@avatar = get_string(xml, "avatarlink", "value")
+			@year_registered = get_integer(xml, "yearregistered", "value")
+			@last_login = get_string(xml, "lastlogin", "value")
+			@state = get_string(xml, "stateorprovince", "value")
+			@trade_rating = get_integer(xml, "traderating", "value")
 		end
 
 		def get_collection

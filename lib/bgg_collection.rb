@@ -4,10 +4,9 @@ module BoardGameGem
 		attr_reader :count, :items
 
 		def initialize(xml)
-			super
-			@count = get_integer("items", "totalitems")
+			@count = get_integer(xml, "items", "totalitems")
 			@items = []
-			@xml.css("item").each do |item|
+			xml.css("item").each do |item|
 				@items.push(BGGCollectionItem.new(item))
 			end
 		end

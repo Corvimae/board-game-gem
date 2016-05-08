@@ -4,11 +4,10 @@ module BoardGameGem
 		attr_reader :id, :type, :name, :year_published
 		
 		def initialize(xml)
-			super
 			@id = xml["id"].to_i
 			@type = xml["type"]
-			@name = get_string("name", "value")
-			@year_published = get_string("yearpublished", "value")
+			@name = get_string(xml, "name", "value")
+			@year_published = get_string(xml, "yearpublished", "value")
 		end
 
 		def to_item(statistics = false)
