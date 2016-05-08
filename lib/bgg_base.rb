@@ -1,17 +1,9 @@
 module BoardGameGem
 	class BGGBase
-		def initialize(xml)
-			@xml = xml
-		end
-
-		def to_s
-			return instance_variables.map{|ivar| "#{ivar} => #{instance_variable_get ivar}" }
-		end
-
 		protected
 
-		def get_value(path, key = nil)
-			item = @xml.at_css(path)
+		def get_value(xml, path, key = nil)
+			item = xml.at_css(path)
 			if item.nil?
 				return nil
 			end
@@ -22,9 +14,9 @@ module BoardGameGem
 			end
 		end
 
-		def get_values(path, key = nil)
+		def get_values(xml, path, key = nil)
 			results = []
-			@xml.css(path).each do |item|
+			xml.css(path).each do |item|
 				if key.nil?
 					results.push(item.content)
 				else
@@ -34,32 +26,32 @@ module BoardGameGem
 			return results
 		end
 
-		def get_boolean(path, key = nil)
-			return get_integer(path, key) == 1 rescue nil
+		def get_boolean(xml, path, key = nil)
+			return get_integer(xml, path, key) == 1 rescue nil
 		end
 
-		def get_integer(path, key = nil)
-			return get_value(path, key).to_i rescue nil
+		def get_integer(xml, path, key = nil)
+			return get_value(xml, path, key).to_i rescue nil
 		end
 
-		def get_integers(path, key = nil)
-			return get_values(path, key).map {|x| x.to_i } rescue nil
+		def get_integers(xml, path, key = nil)
+			return get_values(xml, path, key).map {|x| x.to_i } rescue nil
 		end
 
-		def get_string(path, key = nil)
-			return get_value(path, key).to_s rescue nil
+		def get_string(xml, path, key = nil)
+			return get_value(xml, path, key).to_s rescue nil
 		end
 
-		def get_strings(path, key = nil)
-			return get_values(path, key).map {|x| x.to_s } rescue nil
+		def get_strings(xml, path, key = nil)
+			return get_values(xml, path, key).map {|x| x.to_s } rescue nil
 		end
 
-		def get_float(path, key = nil)
-			return get_value(path, key).to_f rescue nil
+		def get_float(xml, path, key = nil)
+			return get_value(xml, path, key).to_f rescue nil
 		end
 
-		def get_datetime(path, key)
-			return DateTime.strptime(get_string(path, key), '%F %T')
+		def get_datetime(xml, path, key)
+			return DateTime.strptime(get_string(xml, path, key), '%F %T')
 		end
 	end
 end
