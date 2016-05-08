@@ -8,22 +8,30 @@ module BoardGameGem
 	def BoardGameGem.get_item(id, statistics = false, options = {})
 		options[:id] = id
 		options[:stats] = statistics ? 1 : 0
-		return BGGItem.new(BoardGameGem.request_xml("thing", options))
+		item = BGGItem.new(BoardGameGem.request_xml("thing", options))
+		return item.id == 0 ? nil : item
 	end
 
 	def BoardGameGem.get_family(id, options = {})
 		options[:id] = id
-		return BGGFamily.new(BoardGameGem.request_xml("family", options))
+		family = BGGFamily.new(BoardGameGem.request_xml("family", options))
+		return family.id == 0 ? nil : family
 	end
 
 	def BoardGameGem.get_user(username, options = {})
 		options[:name] = username
-		return BGGUser.new(BoardGameGem.request_xml("user", options))
+		user = BGGUser.new(BoardGameGem.request_xml("user", options))
+		return user.id == 0 ? nil : user
 	end
 
 	def BoardGameGem.get_collection(username, options = {})
 		options[:username] = username
-		return BGGCollection.new(BoardGameGem.request_xml("collection", options))
+		collection_xml = BoardGameGem.request_xml("collection", options)
+		if collection_xml.css("error").length > 0
+			return nil
+		else
+			return BGGCollection.new(collection_xml)
+		end
 	end
 
 	def BoardGameGem.search(query, options = {})
