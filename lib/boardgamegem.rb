@@ -38,7 +38,7 @@ module BoardGameGem
 		options[:query] = query
 		xml = BoardGameGem.request_xml("search", options)
 		return {
-			:total => xml["total"].to_i,
+			:total => xml.css("items")["total"].to_i,
 			:items => xml.css("item").map { |x| BGGSearchResult.new(x) }
 		}
 	end
