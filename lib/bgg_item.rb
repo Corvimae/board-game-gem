@@ -7,6 +7,7 @@ module BoardGameGem
 		def initialize(xml)
 			@id = get_integer(xml, "item", "id")
 			@type = get_string(xml, "item", "type")
+			@image = get_string(xml, "image")
 			@thumbnail = get_string(xml, "thumbnail")
 			@name = get_string(xml, "name[type='primary']", "value")
 			@alternate_names = get_strings(xml, "name[type='alternate']", "value")
@@ -28,6 +29,7 @@ module BoardGameGem
 					rank_data = {}
 					rank_data[:type] = rank["type"]
 					rank_data[:name] = rank["name"]
+					rank_data[:friendly_name] = rank["friendlyname"]
 					rank_data[:value] = rank["value"].to_i
 					rank_data[:bayes] = rank["bayesaverage"].to_f
 					@statistics[:ranks].push(rank_data)
