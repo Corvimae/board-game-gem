@@ -24,7 +24,18 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+  
+  dependencies = [
+    # Examples:
+    [:runtime,     "nokogiri"],
+    [:development, "bundler", "rake"],
+  ]
 
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
+  dependencies.each do |type, name, version|
+    if s.respond_to?("add_#{type}_dependency")
+      s.send("add_#{type}_dependency", name, version)
+    else
+      s.add_dependency(name, version)
+    end
+  end
 end
