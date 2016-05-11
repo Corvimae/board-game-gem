@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
     # Examples:
     [:runtime,     "nokogiri"],
     [:development, "bundler"],
+    [:development, "rake"]
   ]
 
   dependencies.each do |type, name, version|
