@@ -19,6 +19,7 @@ module BoardGameGem
 				:want_to_play => get_boolean(xml, "status", "wanttoplay"),
 				:want_to_buy => get_boolean(xml, "status", "wanttobuy"),
 				:wishlist => get_boolean(xml, "status", "wishlist"),
+				:wishlist_priority => get_integer(xml, "status", "wishlistpriority"),
 				:preordered => get_boolean(xml, "status", "preordered"),
 				:last_modified => get_datetime(xml, "status", "lastmodified")
 			}
