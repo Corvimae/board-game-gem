@@ -61,11 +61,6 @@ module BoardGameGem
 					@statistics = nil
 				end
 			end
-			
-			def self.blank
-				item = BGGItem.new(nil)
-
-			end
 		end
 	end
 end
