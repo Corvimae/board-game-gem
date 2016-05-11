@@ -32,10 +32,10 @@ Gem::Specification.new do |spec|
   ]
 
   dependencies.each do |type, name, version|
-    if s.respond_to?("add_#{type}_dependency")
-      s.send("add_#{type}_dependency", name, version)
+    if spec.respond_to?("add_#{type}_dependency")
+      spec.send("add_#{type}_dependency", name, version)
     else
-      s.add_dependency(name, version)
+      spec.add_dependency(name, version)
     end
   end
 end
