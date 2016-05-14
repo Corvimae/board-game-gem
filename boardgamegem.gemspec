@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'boardgamegem/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "BoardGameGem"
+  spec.name          = "board-game-gem"
   spec.version       = BoardGameGem::VERSION
   spec.authors       = ["Jake Roussel"]
   spec.email         = ["jakeroussel@mac.com"]
@@ -24,19 +24,9 @@ Gem::Specification.new do |spec|
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
-  
-  dependencies = [
-    # Examples:
-    [:runtime,     "nokogiri"],
-    [:development, "bundler"],
-    [:development, "rake"]
-  ]
 
-  dependencies.each do |type, name, version|
-    if spec.respond_to?("add_#{type}_dependency")
-      spec.send("add_#{type}_dependency", name, version)
-    else
-      spec.add_dependency(name, version)
-    end
-  end
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "bundler"
+
+  spec.add_dependency "nokogiri"
 end
