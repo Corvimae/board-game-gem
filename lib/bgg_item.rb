@@ -5,6 +5,7 @@ module BoardGameGem
 			:playing_time, :min_playing_time, :max_playing_time, :statistics
 
 		def initialize(xml)
+			p xml.nil? ? "yes" : "no"
 			if !xml.nil?
 				@id = get_integer(xml, "item", "id")
 				@type = get_string(xml, "item", "type")
@@ -44,22 +45,22 @@ module BoardGameGem
 					@statistics[:num_comments] = get_integer(xml, "numcomments", "value")
 					@statistics[:num_weights] = get_integer(xml, "numweights", "value")
 					@statistics[:average_weight] = get_integer(xml, "averageweight", "value")
-				else
-					@id = 0
-					@type = ""
-					@image = ""
-					@thumbnail = ""
-					@name = ""
-					@alternate_names = []
-					@description = ""
-					@year_published = -1
-					@min_players = -1
-					@max_players = -1
-					@playing_time = -1
-					@min_playing_time = -1
-					@max_playing_time = -1
-					@statistics = nil
 				end
+			else
+				@id = 0
+				@type = ""
+				@image = ""
+				@thumbnail = ""
+				@name = ""
+				@alternate_names = []
+				@description = ""
+				@year_published = -1
+				@min_players = -1
+				@max_players = -1
+				@playing_time = -1
+				@min_playing_time = -1
+				@max_playing_time = -1
+				@statistics = nil
 			end
 		end
 

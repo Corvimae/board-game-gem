@@ -1,3 +1,6 @@
-require_relative 'lib/BoardGameGem'
+require_relative 'lib/boardgamegem'
 
-p BoardGameGem.get_items([1,2,3])
+(0..100).each do |i|
+	BoardGameGem.get_item(1)
+	p i
+end
