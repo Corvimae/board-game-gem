@@ -60,17 +60,22 @@ module BoardGameGem
 
 	def BoardGameGem.request_xml(method, hash, attempt = 0)
 		params = BoardGameGem.hash_to_uri(hash)
-		open("#{API_ROOT}/#{method}?#{params}") do |file|
-			if file.status[0] != "200"
-				if attempt < MAX_ATTEMPTS
-					sleep 0.05
-					BoardGameGem.request_xml(method, hash, attempt + 1)
+		begin
+			open("#{API_ROOT}/#{method}?#{params}") do |file|
+				if file.status[0] != "200"
+					if attempt < MAX_ATTEMPTS
+						sleep 0.05
+						BoardGameGem.request_xml(method, hash, attempt + 1)
+					else
+						return nil
+					end
 				else
-					return nil
+					Nokogiri::XML(file.read)
 				end
-			else
-				Nokogiri::XML(file.read)
 			end
+		rescue
+			sleep 0.05
+			BoardGameGem.request_xml(method, hash, attempt + 1)
 		end
 	end
 
