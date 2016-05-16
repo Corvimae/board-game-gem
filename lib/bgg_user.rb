@@ -20,6 +20,7 @@ module BoardGameGem
 				@last_login = "0000-00-00 00:00:00"
 				@state = ""
 				@trade_rating = -1
+			end
 		end
 
 		def get_collection
