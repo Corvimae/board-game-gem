@@ -19,8 +19,7 @@ module BoardGameGem
 		item_list = []
 		item_xml.css("item").wrap("<item_data></item_data>")
 		item_xml.css("item_data").each do |item_data|
-			item = BGGItem.new(item_data)
-			item_list.push(item)
+			item_list.push(BGGItem.new(item_data))
 		end
 		item_list
 	end
@@ -69,7 +68,7 @@ module BoardGameGem
 					value = Nokogiri::XML(file.read)
 				end
 			end
-		end
+		end 
 		value
 	end
 
