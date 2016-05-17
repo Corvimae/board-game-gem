@@ -1,7 +1,7 @@
 module BoardGameGem
 	class BGGItem < BGGBase
 
-		attr_reader :id, :type, :thumbnail, :name, :description, :year_published, :min_players, :max_players,
+		attr_reader :id, :type, :thumbnail, :image, :name, :description, :year_published, :min_players, :max_players,
 			:playing_time, :min_playing_time, :max_playing_time, :statistics
 
 		def initialize(xml)
@@ -50,7 +50,7 @@ module BoardGameGem
 				@type = ""
 				@image = ""
 				@thumbnail = ""
-				@name = ""
+				@name = "Data pending..."
 				@alternate_names = []
 				@description = ""
 				@year_published = -1
