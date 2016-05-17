@@ -5,7 +5,6 @@ module BoardGameGem
 			:playing_time, :min_playing_time, :max_playing_time, :statistics
 
 		def initialize(xml)
-			p xml.nil? ? "yes" : "no"
 			if !xml.nil?
 				@id = get_integer(xml, "item", "id")
 				@type = get_string(xml, "item", "type")

@@ -60,34 +60,42 @@ module BoardGameGem
 
 	def BoardGameGem.request_xml(method, hash, attempt = 0)
 		params = BoardGameGem.hash_to_uri(hash)
-		if attempt < MAX_ATTEMPTS
-			begin
-				open("#{API_ROOT}/#{method}?#{params}") do |file|
-					if file.status[0] != "200"
-						sleep 0.05
-						BoardGameGem.request_xml(method, hash, attempt + 1)
-					else
-						Nokogiri::XML(file.read)
-					end
+		value = BoardGameGem.retryable(tries: MAX_ATTEMPTS, on: OpenURI::HTTPError) do
+			open("#{API_ROOT}/#{method}?#{params}") do |file|
+				if file.status[0] != "200"
+					sleep 0.05
+					throw OpenURI::HTTPError
+				else
+					value = Nokogiri::XML(file.read)
 				end
-			rescue
-				sleep 0.05
-				BoardGameGem.request_xml(method, hash, attempt + 1)
 			end
-		else
-			return nil
 		end
+		value
 	end
 
 	def BoardGameGem.hash_to_uri(hash)
 		return hash.to_a.map { |x| "#{x[0]}=#{x[1]}" }.join("&")
 	end
+
+	def BoardGameGem.retryable(options = {}, &block)
+	  opts = { :tries => 1, :on => Exception }.merge(options)
+
+	  retry_exception, retries = opts[:on], opts[:tries]
+
+	  begin
+	    return yield
+	  rescue retry_exception
+	    retry if (retries -= 1) > 0
+	  end
+
+	  yield
+	end
 end
 
-require 'bgg_base'
-require 'bgg_item'
-require 'bgg_family'
-require 'bgg_user'
-require 'bgg_collection'
-require 'bgg_collection_item'
-require 'bgg_search_result'
+require_relative 'bgg_base'
+require_relative 'bgg_item'
+require_relative 'bgg_family'
+require_relative 'bgg_user'
+require_relative 'bgg_collection'
+require_relative 'bgg_collection_item'
+require_relative 'bgg_search_result'
