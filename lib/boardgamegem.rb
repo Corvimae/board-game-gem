@@ -5,7 +5,6 @@ module BoardGameGem
 	API_ROOT = "https://www.boardgamegeek.com/xmlapi2"
 	MAX_ATTEMPTS = 10
 
-	module_function :get_items 
 	def BoardGameGem.get_item(id, statistics = false, options = {})
 		options[:id] = id
 		options[:stats] = statistics ? 1 : 0
