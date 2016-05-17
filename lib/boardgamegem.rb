@@ -5,15 +5,15 @@ module BoardGameGem
 	API_ROOT = "https://www.boardgamegeek.com/xmlapi2"
 	MAX_ATTEMPTS = 10
 
-	module_function
-	def get_item(id, statistics = false, options = {})
+	module_function :get_items 
+	def BoardGameGem.get_item(id, statistics = false, options = {})
 		options[:id] = id
 		options[:stats] = statistics ? 1 : 0
 		item = BGGItem.new(BoardGameGem.request_xml("thing", options))
 		return item.id == 0 ? nil : item
 	end
 
-	def get_items(ids, statistics = false, options = {})
+	def BoardGameGem.get_items(ids, statistics = false, options = {})
 		options[:id] = ids.join(",")
 		options[:stats] = statistics ? 1 : 0
 		item_xml = BoardGameGem.request_xml("thing", options)
@@ -25,19 +25,19 @@ module BoardGameGem
 		item_list
 	end
 
-	def get_family(id, options = {})
+	def BoardGameGem.get_family(id, options = {})
 		options[:id] = id
 		family = BGGFamily.new(BoardGameGem.request_xml("family", options))
 		return family.id == 0 ? nil : family
 	end
 
-	def get_user(username, options = {})
+	def BoardGameGem.get_user(username, options = {})
 		options[:name] = username
 		user = BGGUser.new(BoardGameGem.request_xml("user", options))
 		return user.id == 0 ? nil : user
 	end
 
-	def get_collection(username, options = {})
+	def BoardGameGem.get_collection(username, options = {})
 		options[:username] = username
 		collection_xml = BoardGameGem.request_xml("collection", options)
 		if collection_xml.css("error").length > 0
@@ -47,7 +47,7 @@ module BoardGameGem
 		end
 	end
 
-	def search(query, options = {})
+	def BoardGameGem.search(query, options = {})
 		options[:query] = query
 		xml = BoardGameGem.request_xml("search", options)
 		return {
