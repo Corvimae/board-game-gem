@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'open-uri'
 
 module BoardGameGem
-	API_ROOT = "http://www.boardgamegeek.com/xmlapi2"
+	API_ROOT = "https://www.boardgamegeek.com/xmlapi2"
 	MAX_ATTEMPTS = 10
 
 	def BoardGameGem.get_item(id, statistics = false, options = {})
