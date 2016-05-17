@@ -10,7 +10,7 @@ module BoardGameGem
 		options[:id] = id
 		options[:stats] = statistics ? 1 : 0
 		item = BGGItem.new(BoardGameGem.request_xml("thing", options))
-		return item.id == 0 ? nil : item
+		item.id == 0 ? nil : item
 	end
 
 	def BoardGameGem.get_items(ids, statistics = false, options = {})
@@ -28,29 +28,29 @@ module BoardGameGem
 	def BoardGameGem.get_family(id, options = {})
 		options[:id] = id
 		family = BGGFamily.new(BoardGameGem.request_xml("family", options))
-		return family.id == 0 ? nil : family
+		family.id == 0 ? nil : family
 	end
 
 	def BoardGameGem.get_user(username, options = {})
 		options[:name] = username
 		user = BGGUser.new(BoardGameGem.request_xml("user", options))
-		return user.id == 0 ? nil : user
+		user.id == 0 ? nil : user
 	end
 
 	def BoardGameGem.get_collection(username, options = {})
 		options[:username] = username
 		collection_xml = BoardGameGem.request_xml("collection", options)
 		if collection_xml.css("error").length > 0
-			return nil
+			nil
 		else
-			return BGGCollection.new(collection_xml)
+			BGGCollection.new(collection_xml)
 		end
 	end
 
 	def BoardGameGem.search(query, options = {})
 		options[:query] = query
 		xml = BoardGameGem.request_xml("search", options)
-		return {
+		{
 			:total => xml.at_css("items")["total"].to_i,
 			:items => xml.css("item").map { |x| BGGSearchResult.new(x) }
 		}
