@@ -12,7 +12,7 @@ module BoardGameGem
 		item.id == 0 ? nil : item
 	end
 
-	def self.get_items(ids, statistics = false, options = {})
+	def self.fetch_items(ids, statistics = false, options = {})
 		options[:id] = ids.join(",")
 		options[:stats] = statistics ? 1 : 0
 		item_xml = BoardGameGem.request_xml("thing", options)
