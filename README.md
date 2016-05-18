@@ -1,12 +1,12 @@
-# BoardGameGem
-BoardGameGem provides a Ruby interface to the [BoardGameGeek XML API](http://www.boardgamegeek.com/xmlapi2) (version 2). It's designed to work with the Rails cache to reduce the number of requests when working with Rails.
+# board-game-gem
+board-game-gem provides a Ruby interface to the [BoardGameGeek XML API](http://www.boardgamegeek.com/xmlapi2) (version 2). It's designed to work with the Rails cache to reduce the number of requests when working with Rails.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'boardgamegem'
+gem 'board-game-gem'
 ```
 
 And then execute:
@@ -15,7 +15,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install boardgamegem
+    $ gem install board-game-gem
 
 ## Usage
 
@@ -87,11 +87,11 @@ A `BGGItem` version of this object can be requested with `to_item([statistics])`
 
 ### But the BGG API has more than just this!
 
-I made this gem to help make requests for another one of my projects, [Math Trade Manager](http://www.github.com/acceptableice/math-trade-manager), and thus haven't finished implementing the other BGG API features that Math Trade Manager didn't require. If you need something specific for your application, log an issue, message me on Twitter ([@AcceptableIce](http://www.twitter.com/acceptableice)), or email me at [jakeroussel@mac.com](mailto:jakeroussel@mac.com). This is my first gem, so there are probably some issues. Let me know!
+I made this gem to help make requests for another one of my projects, [Acceptable Trader](http://www.github.com/acceptableice/acceptable-trader), and thus haven't finished implementing the other BGG API features that Acceptable Trader didn't require. If you need something specific for your application, log an issue, message me on Twitter ([@AcceptableIce](http://www.twitter.com/acceptableice)), or email me at [jakeroussel@mac.com](mailto:jakeroussel@mac.com). This is my first gem, so there are probably some issues. Let me know!
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/acceptableice/boardgamegem. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/acceptableice/board-game-gem. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
