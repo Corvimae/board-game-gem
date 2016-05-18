@@ -17,7 +17,7 @@ module BoardGameGem
 		end
 
 		def status_of(id)
-			item = @items.first { |x| x.id == id}
+			item = @items.find { |x| x.id == id}
 			item ? item.status : nil
 		end
 
