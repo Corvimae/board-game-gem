@@ -16,6 +16,11 @@ module BoardGameGem
 			end
 		end
 
+		def status_of(id)
+			item = @items.first { |x| x.id == id}
+			item ? item.status : nil
+		end
+
 		def get_owned
 			return filter_by(:own)
 		end

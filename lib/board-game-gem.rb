@@ -60,6 +60,7 @@ module BoardGameGem
 	def self.request_xml(method, hash, attempt = 0)
 		params = BoardGameGem.hash_to_uri(hash)
 		value = BoardGameGem.retryable(tries: MAX_ATTEMPTS, on: OpenURI::HTTPError) do
+			#p "#{API_ROOT}/#{method}?#{params}"
 			open("#{API_ROOT}/#{method}?#{params}") do |file|
 				if file.status[0] != "200"
 					sleep 0.05
