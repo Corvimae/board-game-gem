@@ -2,25 +2,35 @@ require 'nokogiri'
 require 'open-uri'
 
 module BoardGameGem
-	API_ROOT = "https://www.boardgamegeek.com/xmlapi2"
+	API_1_ROOT = "https://www.boardgamegeek.com/xmlapi"
+	API_2_ROOT = "https://www.boardgamegeek.com/xmlapi2"
 	MAX_ATTEMPTS = 10
 
-	def self.get_item(id, statistics = false, options = {})
+	def self.get_item(id, statistics = false, api = 2, options = {})
 		options[:id] = id
 		options[:stats] = statistics ? 1 : 0
-		item = BGGItem.new(BoardGameGem.request_xml("thing", options))
+		item = BGGItem.new(BoardGameGem.request_xml(api == 2 ? "thing" : "boardgame", options, api), api)
 		item.id == 0 ? nil : item
 	end
 
-	def self.get_items(ids, statistics = false, options = {})
+	def self.get_items(ids, statistics = false, api = 2, options = {})
 		options[:id] = ids.join(",")
 		options[:stats] = statistics ? 1 : 0
-		item_xml = BoardGameGem.request_xml("thing", options)
 		item_list = []
-		item_xml.css("item").wrap("<item_data></item_data>")
-		item_xml.css("item_data").each do |item_data|
-			item_list.push(BGGItem.new(item_data))
+		if api == 2
+			path = "thing"
+			element = "item"
+		else
+			path = "boardgame"
+			element = "boardgame"
 		end
+
+		item_xml = BoardGameGem.request_xml(path, options, api)		
+		item_xml.css(element).wrap("<item_data></item_data>")		
+		item_xml.css("item_data").each do |item_data|
+			item_list.push(BGGItem.new(item_data, api))
+		end
+
 		item_list
 	end
 
@@ -57,11 +67,16 @@ module BoardGameGem
 
 	private
 
-	def self.request_xml(method, hash, attempt = 0)
+	def self.request_xml(method, hash, api = 2)
 		params = BoardGameGem.hash_to_uri(hash)
 		value = BoardGameGem.retryable(tries: MAX_ATTEMPTS, on: OpenURI::HTTPError) do
-			#p "#{API_ROOT}/#{method}?#{params}"
-			open("#{API_ROOT}/#{method}?#{params}") do |file|
+			if api == 2
+				api_path = "#{API_2_ROOT}/#{method}?#{params}"
+			else
+				api_path = "#{API_1_ROOT}/#{method}/#{hash[:id]}?stats=#{hash[:stats] ? 1 : 0}"
+			end
+			p api_path
+			open(api_path) do |file|
 				if file.status[0] != "200"
 					sleep 0.05
 					throw OpenURI::HTTPError
