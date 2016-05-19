@@ -53,5 +53,13 @@ module BoardGameGem
 		def get_datetime(xml, path, key)
 			return DateTime.strptime(get_string(xml, path, key), '%F %T')
 		end
+
+		def key_for_api(api1, api2)
+			@api == 2 ? api2 : api1
+		end
+
+		def api_key_value
+			key_for_api(nil, "value")
+		end
 	end
 end

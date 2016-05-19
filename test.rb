@@ -1,4 +1,8 @@
 require_relative 'lib/board-game-gem'
-collection =	BoardGameGem.get_collection("AcceptableIce")
+#p BoardGameGem.get_items([15944, 15955, 15956]).to_s
 
-p collection.status_of(68448)
+p BoardGameGem.get_items([123260, 123265, 61001], true).map { |x| x.type }
+
+
+p BoardGameGem.get_item(123260, true)
+
