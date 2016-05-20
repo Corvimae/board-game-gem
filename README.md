@@ -25,25 +25,29 @@ The `options` argument is a hash which allows any other parameter. For example, 
 
 ---
 
-`get_item(id, [statistics], [options])`: Retreive a specific item from BGG by ID. Within the BGG API, this is called a 'thing' rather than an 'item'. If an item with that ID is not found, `nil` is returned.
+`get_item(id, [statistics], [api] [options])`: Retreive a specific item from BGG by ID. Within the BGG API, this is called a 'thing' rather than an 'item'. If an item with that ID is not found, `nil` is returned.
 
-If `statistics` is true, averages, weights, and rankings will be retrieved as well. By default, `statistics` is false.
+If `statistics` is true, averages, weights, and rankings will be retrieved as well. By default, `statistics` is false and `api` is 2.
 
 `get_item` returns a `BGGItem` object, which has the following attributes:
-`:id, :type, :thumbnail, :name, :description, :year_published, :min_players, :max_players,
-:playing_time, :min_playing_time, :max_playing_time, :statistics`. 
+`id, api, type, thumbnail, name, alternate_names, description, year_published, min_players, max_players,
+playing_time, min_playing_time, max_playing_time, statistics`. If `api` is 1, `alternate_names` will always be `nil`.
 
-`:statistics` is a hash, with the following keys: `:user_ratings, :average, :bayes, :ranks, :stddev, :median, :owned, :trading, :wanted, :wishing, :num_comments, :num_weights, :average_weight`. Within this, `:ranks` is an array, containing hashes with the following keys: `:type, :name, :friendly_name, :value, :bayes`.
+`statistics` is a hash, with the following keys: `:user_ratings, :average, :bayes, :ranks, :stddev, :median, :owned, :trading, :wanted, :wishing, :num_comments, :num_weights, :average_weight`. Within this, `:ranks` is an array, containing hashes with the following keys: `:type, :name, :friendly_name, :value, :bayes`.
+
+`get_items(ids, [statistics], [api], [options])` exists as well, which is functionally equivelent to `get_item`, except it takes
+an array of IDs and returns an array of `BGGItem` objects. `get_items` should be used when making many requests in succession,
+as it makes one HTTP request for the batch.
 
 ---
 
-`get_family(id, [options])`: Retrieves information on a data family. Returns a `BGGFamily` object, which has the following attributes: `:id, :thumbnail, :image, :name, :alternate_names, :description`. Within this, `:alternate_names` is an array of strings. If a family with that ID is not found, `nil` is returned.
+`get_family(id, [options])`: Retrieves information on a data family. Returns a `BGGFamily` object, which has the following attributes: `id, thumbnail, image, name, alternate_names, description`. Within this, `alternate_names` is an array of strings. If a family with that ID is not found, `nil` is returned.
 
 ---
 
 `get_user(username, [options])`: Retreives information on a specific user by name. If a user with that name does not exist, `nil` is returned.
 
-`get_user` returns a `BGGUser` object, which has the following attributes: `:id, :name, :avatar, :year_registered, :last_login, :state, :trade_rating`
+`get_user` returns a `BGGUser` object, which has the following attributes: `id, name, avatar, year_registered, last_login, state, trade_rating`
 
 #### Methods
 `get_collection`: Returns this user's collection, as if `BoardGameGem.get_collection` was called using this user's name.
@@ -71,17 +75,17 @@ The BGG API queues requests to retrieve a user's collection, returning a 202 sta
 
 #### BGGCollectionItem
 
-The BGG API returns a subset of an item's data when including it in a collection request. As a result, a `BGGCollectionItem` contains the following attributes: `:id, :type, :name, :year_published, :image, :thumbnail, :num_players, :status, :num_plays`. Within this, `:status` is a hash containing the following keys: `:own, :prev_owned, :for_trade, :want, :want_to_play, :want_to_buy, :wishlist, :preordered:, :last_modified`. 
+The BGG API returns a subset of an item's data when including it in a collection request. As a result, a `BGGCollectionItem` contains the following attributes: `id, type, name, year_published, image, thumbnail, num_players, status, num_plays`. Within this, `status` is a hash containing the following keys: `:own, :prev_owned, :for_trade, :want, :want_to_play, :want_to_buy, :wishlist, :preordered:, :last_modified`. 
 
 `BGGCollectionItem` contains one other method, `to_item([statistics])`, which returns the `BGGItem` version of this object.
 
 ---
 
-`search(query, [options])`: Performs a search request, returning any items which are like the query. Returns a hash with the keys `:total`, the number of items found in the search, and `:items`, an array of `BGGSearchResult` objects.
+`search(query, [options])`: Performs a search request, returning any items which are like the query. Returns a hash with the keys `total`, the number of items found in the search, and `items`, an array of `BGGSearchResult` objects.
 
 #### BGGSearchResult
 
-Much like `BGGCollectionItem`, `BGGSearchResult` is a subset of `BGGItem`, and contains the following attributes: `:id, :type, :name, :year_published`.
+Much like `BGGCollectionItem`, `BGGSearchResult` is a subset of `BGGItem`, and contains the following attributes: `id, type, name, year_published`.
 
 A `BGGItem` version of this object can be requested with `to_item([statistics])`.
 
