@@ -1,7 +1,7 @@
 module BoardGameGem
 	class BGGCollection < BGGBase
 
-		attr_reader :count, :items
+		attr_accessor :count, :items
 
 		def initialize(xml)
 			if !xml.nil?

@@ -69,13 +69,13 @@ module BoardGameGem
 
 	def self.request_xml(method, hash, api = 2)
 		params = BoardGameGem.hash_to_uri(hash)
+		if api == 2
+			api_path = "#{API_2_ROOT}/#{method}?#{params}"
+		else
+			api_path = "#{API_1_ROOT}/#{method}/#{hash[:id]}?stats=#{hash[:stats] ? 1 : 0}"
+		end
+		p api_path
 		value = BoardGameGem.retryable(tries: MAX_ATTEMPTS, on: OpenURI::HTTPError) do
-			if api == 2
-				api_path = "#{API_2_ROOT}/#{method}?#{params}"
-			else
-				api_path = "#{API_1_ROOT}/#{method}/#{hash[:id]}?stats=#{hash[:stats] ? 1 : 0}"
-			end
-			p api_path
 			open(api_path) do |file|
 				if file.status[0] != "200"
 					sleep 0.05
