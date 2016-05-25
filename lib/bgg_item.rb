@@ -16,6 +16,8 @@ module BoardGameGem
 							@type = "videogame"
 						elsif !get_value(xml, "boardgameexpansion").nil?
 							@type = "boardgameexpansion"
+						elsif !get_value(xml, "rpgpublisher").nil?
+							@type = "rpgitem"
 						end
 					else
 						@type = "boardgame"
