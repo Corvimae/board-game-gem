@@ -6,11 +6,11 @@ require 'boardgamegem/version'
 Gem::Specification.new do |spec|
   spec.name          = "board-game-gem"
   spec.version       = BoardGameGem::VERSION
-  spec.authors       = ["Jake Roussel"]
-  spec.email         = ["jakeroussel@mac.com"]
+  spec.authors       = ["May Roussel"]
+  spec.email         = ["may@maybreak.com"]
 
   spec.summary       = %q{Provides a Ruby interface to the BoardGameGeek API}
-  spec.homepage      = "http://www.github.com/acceptableice/boardgamegem"
+  spec.homepage      = "http://www.github.com/Corvimae/boardgamegem"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
