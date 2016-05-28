@@ -48,6 +48,11 @@ module BoardGameGem
 		def get_preordered
 			return filter_by(:preordered)
 		end
+
+		def get_for_trade
+			return filter_by(:for_trade)
+		end
+		
 		private
 
 		def filter_by(key)
