@@ -91,11 +91,11 @@ A `BGGItem` version of this object can be requested with `to_item([statistics])`
 
 ### But the BGG API has more than just this!
 
-I made this gem to help make requests for another one of my projects, [Acceptable Trader](http://www.github.com/Corvimae/acceptable-trader), and thus haven't finished implementing the other BGG API features that Acceptable Trader didn't require. If you need something specific for your application, log an issue, message me on Twitter ([@Corvimae](http://www.twitter.com/Corvimae)), or email me at [jakeroussel@mac.com](mailto:jakeroussel@mac.com). This is my first gem, so there are probably some issues. Let me know!
+I made this gem to help make requests for another one of my projects, [Acceptable Trader](http://www.github.com/Corvimae/acceptable-trader), and thus haven't finished implementing the other BGG API features that Acceptable Trader didn't require. If you need something specific for your application, log an issue, message me on Twitter ([@Corvimae](http://www.twitter.com/Corvimae)). This is my first gem, so there are probably some issues. Let me know!
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/acceptableice/board-game-gem. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/corvimae/board-game-gem. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License
